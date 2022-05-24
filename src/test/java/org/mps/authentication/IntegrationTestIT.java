@@ -3,6 +3,7 @@ package org.mps.authentication;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class IntegrationTestIT {
 
@@ -97,6 +98,23 @@ public class IntegrationTestIT {
         credentialStore.register(birthDate, passwordString);
         assertEquals(credentialStore.size(), 1);
     }
-    
+
+    @Test
+    public void testCredentialStoreRegisterWithInvalidPasswordAndNotRepeatedIncreasesCredentialStoreSize(){
+        var credentialStore = new CredentialStoreSet();
+        Date birthDate = new Date(15,2,2001);
+        var passwordString = new PasswordString("password123");
+        credentialStore.register(birthDate, passwordString);
+        assertEquals(credentialStore.size(), 1);
+    }
+    @Test
+    public void testCredentialStoreRegisterWithValidArgumentsAndRepeatedNotIncreasesCredentialStoreSizeAndThrowException(){
+        var credentialStore = new CredentialStoreSet();
+        Date birthDate = new Date(15,2,2001);
+        var passwordString = new PasswordString("password,123");
+        credentialStore.register(birthDate, passwordString);
+        assertThrows(CredentialExistsException.class, () -> credentialStore.register(birthDate, passwordString)) ;
+
+    }
 
 }
