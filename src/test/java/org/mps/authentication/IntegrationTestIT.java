@@ -7,6 +7,16 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class IntegrationTestIT {
 
     @Test
+    public void testUserRegistrationRegisterWithValidArgumentsIncreasesCredentialStoreSize(){
+        Date birthDate = new Date(1,1,2001);
+        var passwordString = new PasswordString("password,123");
+        var credentialStore = new CredentialStoreSet();
+        var userRegistration = new UserRegistration();
+        userRegistration.register(birthDate, passwordString, credentialStore);
+        assertEquals(credentialStore.size(), 1);
+    }
+
+    @Test
     public void testCredentialStoreWithValidArgumentsAndNotRepeatedReturnsVALIDATION_OK(){
         Date birthDate = new Date(1,1,2001);
         var passwordString = new PasswordString("password,123");
@@ -24,4 +34,15 @@ public class IntegrationTestIT {
         userRegistration.register(birthDate,passwordString,credentialStore);
         assertEquals(0, credentialStore.size());
     }
+
+    @Test
+    public void testCredentialStoreWithInvalidBirthDateAndNotRepeatedReturnsBIRTHDAY_INVALID() {
+        Date birthDate = new Date(31, 2, 2001);
+        var passwordString = new PasswordString("password,123");
+        var credentialStore = new CredentialStoreSet();
+        var credentialStoreValidator = new CredentialValidator(birthDate, passwordString, credentialStore);
+        assertEquals(credentialStoreValidator.validate(), CredentialValidator.ValidationStatus.BIRTHDAY_INVALID);
+    }
+
+
 }
