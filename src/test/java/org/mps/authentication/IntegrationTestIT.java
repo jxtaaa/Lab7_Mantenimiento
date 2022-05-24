@@ -15,6 +15,7 @@ public class IntegrationTestIT {
         userRegistration.register(birthDate, passwordString, credentialStore);
         assertEquals(credentialStore.size(), 1);
     }
+
     @Test
     public void testUserRegistrationRegisterWithInvalidPasswordAndNotRepeatedNotIncreasesCredentialStoreSize(){
         Date birthDate = new Date(1,1,2001);
@@ -72,5 +73,9 @@ public class IntegrationTestIT {
         assertEquals(credentialStoreValidator.validate(), CredentialValidator.ValidationStatus.EXISTING_CREDENTIAL);
     }
 
+    @Test
+    public void test(){
+        CredentialStore cs = new CredentialStoreSet();
+    }
 
 }
