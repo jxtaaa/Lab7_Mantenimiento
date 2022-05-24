@@ -13,16 +13,17 @@ public class IntegrationTestIT {
     @Test
     public void UserRegistration(){
         UserRegistration userRegistration = new UserRegistration();
+
         Date mockDate = mock(Date.class);
         PasswordString mockPassword = mock(PasswordString.class);
         CredentialStore credentialStore = mock(CredentialStore.class);
-        when(mockDate.validate()).thenReturn(true);
-        when(mockPassword.validate()).thenReturn(true);
-        when(credentialStore.credentialExists(mockDate,mockPassword)).thenReturn(false);
+        CredentialValidator credentialValidator = mock(CredentialValidator.class);
 
-        userRegistration.register(mockDate, mockPassword,credentialStore);
+        userRegistration.register(mockDate, mockPassword,credentialStore,credentialValidator);
+        when(credentialValidator.validate()).thenReturn(CredentialValidator.ValidationStatus.VALIDATION_OK);
 
         when(credentialStore.size()).thenReturn(1);
+
         assertEquals(1, credentialStore.size());
     }
 }
