@@ -81,12 +81,6 @@ public class IntegrationTestIT {
         assertEquals(credentialStoreValidator.validate(), CredentialValidator.ValidationStatus.EXISTING_CREDENTIAL);
     }
 
-    @Test
-<<<<<<< HEAD
-    public void test(){
-        CredentialStore cs = new CredentialStoreSet();
-    }
-=======
     public void testCredentialStoreRegisterWithValidArgumentsIncreasesCredentialStoreSize(){
         var credentialStore = new CredentialStoreSet();
         Date birthDate = new Date(1,1,2001);
@@ -103,9 +97,6 @@ public class IntegrationTestIT {
         credentialStore.register(birthDate, passwordString);
         assertEquals(credentialStore.size(), 1);
     }
-
-
-
->>>>>>> 9556daa7bd4f4a72eeb2a7d2d1baf7455e71196e
+    
 
 }
