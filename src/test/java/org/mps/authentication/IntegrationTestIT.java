@@ -53,5 +53,24 @@ public class IntegrationTestIT {
         assertEquals(credentialStoreValidator.validate(), CredentialValidator.ValidationStatus.BIRTHDAY_INVALID);
     }
 
+    @Test
+    public void testCredentialStoreWithInvalidBirthDateAndNotRepeatedReturnsPASSWORD_INVALID() {
+        Date birthDate = new Date(15, 2, 2001);
+        var passwordString = new PasswordString("password123");
+        var credentialStore = new CredentialStoreSet();
+        var credentialStoreValidator = new CredentialValidator(birthDate, passwordString, credentialStore);
+        assertEquals(credentialStoreValidator.validate(), CredentialValidator.ValidationStatus.PASSWORD_INVALID);
+    }
+
+    @Test
+    public void testCredentialStoreWithValidArgumentsAndRepeatedReturnsEXISTING_CREDENTIAL() {
+        Date birthDate = new Date(15, 2, 2001);
+        var passwordString = new PasswordString("password,123");
+        var credentialStore = new CredentialStoreSet();
+        var credentialStoreValidator = new CredentialValidator(birthDate, passwordString, credentialStore);
+        credentialStore.register(birthDate, passwordString);
+        assertEquals(credentialStoreValidator.validate(), CredentialValidator.ValidationStatus.EXISTING_CREDENTIAL);
+    }
+
 
 }
