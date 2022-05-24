@@ -15,7 +15,15 @@ public class IntegrationTestIT {
         userRegistration.register(birthDate, passwordString, credentialStore);
         assertEquals(credentialStore.size(), 1);
     }
-
+    @Test
+    public void testUserRegistrationRegisterWithInvalidBirthDateAndNotRepeatedNotIncreasesCredentialStoreSize(){
+        Date birthDate = new Date(31,2,2001);
+        var passwordString = new PasswordString("password,123");
+        var credentialStore = new CredentialStoreSet();
+        var userRegistration = new UserRegistration();
+        userRegistration.register(birthDate, passwordString, credentialStore);
+        assertEquals(credentialStore.size(), 0);
+    }
     @Test
     public void testUserRegistrationRegisterWithInvalidPasswordAndNotRepeatedNotIncreasesCredentialStoreSize(){
         Date birthDate = new Date(1,1,2001);
@@ -74,8 +82,30 @@ public class IntegrationTestIT {
     }
 
     @Test
+<<<<<<< HEAD
     public void test(){
         CredentialStore cs = new CredentialStoreSet();
     }
+=======
+    public void testCredentialStoreRegisterWithValidArgumentsIncreasesCredentialStoreSize(){
+        var credentialStore = new CredentialStoreSet();
+        Date birthDate = new Date(1,1,2001);
+        var passwordString = new PasswordString("password,123");
+        credentialStore.register(birthDate, passwordString);
+        assertEquals(credentialStore.size(), 1);
+    }
+
+    @Test
+    public void testCredentialStoreRegisterWithInvalidBirthDateAndNotRepeatedIncreasesCredentialStoreSize(){
+        var credentialStore = new CredentialStoreSet();
+        Date birthDate = new Date(31,2,2001);
+        var passwordString = new PasswordString("password,123");
+        credentialStore.register(birthDate, passwordString);
+        assertEquals(credentialStore.size(), 1);
+    }
+
+
+
+>>>>>>> 9556daa7bd4f4a72eeb2a7d2d1baf7455e71196e
 
 }
