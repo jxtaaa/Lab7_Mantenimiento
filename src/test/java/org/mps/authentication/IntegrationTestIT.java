@@ -91,6 +91,15 @@ public class IntegrationTestIT {
         assertEquals(credentialStore.size(), 1);
     }
 
+    @Test
+    public void testCredentialStoreRegisterWithInvalidBirthDateAndNotRepeatedIncreasesCredentialStoreSize(){
+        var credentialStore = new CredentialStoreSet();
+        Date birthDate = new Date(31,2,2001);
+        var passwordString = new PasswordString("password,123");
+        credentialStore.register(birthDate, passwordString);
+        assertEquals(credentialStore.size(), 1);
+    }
+
 
 
 
