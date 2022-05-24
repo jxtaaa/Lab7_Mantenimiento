@@ -1,4 +1,6 @@
 # Test list
 
 - testCredentialStoreWithValidArgumentsAndNotRepeatedReturnsVALIDATION_OK
-- testCredentialStoreWith
+- testCredentialStoreWithInvalidBirthDateAndNotRepeatedReturnsBIRTHDAY_INVALID
+- testCredentialStoreWithInvalidPasswordAndNotRepeatedReturnsPASSWORD_INVALID
+- testCredentialStoreWithValidArgumentsAndRepeatedReturnsEXISTING_CREDENTIAL
